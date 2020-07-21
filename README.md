@@ -4,10 +4,9 @@
 
 * NodeJs
 
-## season-app-server
+## season-app-server(back-end)
 
 * Through a terminal you can start up the Node server by executing:
-
 ```javascript
 node season-app-server.js
 ```
@@ -15,3 +14,5 @@ node season-app-server.js
 ```javascript
 localhost:8080
 ```
+
+## season-app-ui
