@@ -1,11 +1,15 @@
 import {Injectable} from "@angular/core";
-import PouchDB from 'pouchdb';
+import PouchDB from 'pouchdb'
 
 @Injectable()
 export class AppService {
-  private db: any;
+  private isInstantiated: boolean;
+  private database: any;
 
   public constructor() {
-    // this.db = new PouchDB('artemas-test-db');
+    if(!this.isInstantiated) {
+      this.database = new PouchDB("artemas-test-db");
+      this.isInstantiated = true;
+    }
   }
 }
