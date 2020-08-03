@@ -10,6 +10,6 @@ export class AppComponent {
 
   constructor(private appService: AppService) { }
 
-  title = 'season-app-ui';
+  title = 'season generator';
 
 }
