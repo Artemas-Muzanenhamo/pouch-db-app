@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {AppService} from "./app.service";
 
 @Component({
@@ -6,10 +6,19 @@ import {AppService} from "./app.service";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  title = 'season generator';
+
+  ngOnInit(): void {
+    this.getSeason();
+  }
 
   constructor(private appService: AppService) { }
 
-  title = 'season generator';
-
+  public getSeason() {
+    return this.appService.getSeason()
+      .subscribe(
+        response => console.log(response)
+      );
+  }
 }
