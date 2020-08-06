@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from "./app.service";
+import {Season} from "./season";
 
 @Component({
   selector: 'app-root',
@@ -7,7 +8,8 @@ import {AppService} from "./app.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'season generator';
+  title = 'RANDOM SEASON OF THE DAY IS';
+  randomSeason: Season = new Season('');
 
   ngOnInit(): void {
     this.getSeason();
@@ -18,7 +20,7 @@ export class AppComponent implements OnInit {
   public getSeason() {
     return this.appService.getSeason()
       .subscribe(
-        response => console.log(response)
+        response => this.randomSeason = response
       );
   }
 }
