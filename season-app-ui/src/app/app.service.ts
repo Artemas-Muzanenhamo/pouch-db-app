@@ -19,12 +19,6 @@ export class AppService {
     }
   }
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json'
-    })
-  };
-
   public getSeason(): Observable<Season> {
     return this.http.get<Season>(this.url);
   }
