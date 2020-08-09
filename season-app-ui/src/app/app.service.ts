@@ -3,14 +3,12 @@ import PouchDB from 'pouchdb'
 import {Observable} from "rxjs";
 import {Season} from "./season";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {error} from "util";
 
 @Injectable()
 export class AppService {
   private isInstantiated: boolean;
   private database: any;
   private url = 'http://localhost:8888';
-  private season: Season = new Season('');
 
   public constructor(
     private http: HttpClient
