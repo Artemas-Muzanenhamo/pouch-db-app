@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AppService} from "./app.service";
 import {Season} from "./season";
+import {PouchDbService} from "./pouch-db.service";
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,9 @@ export class AppComponent implements OnInit {
     this.getSeason();
   }
 
-  constructor(private appService: AppService) { }
+  constructor(
+    private appService: AppService,
+    private pouchDbService: PouchDbService) { }
 
   public getSeason() {
     return this.appService.getSeason()
