@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AppService} from "./app.service";
 import {Season} from "./season";
 import {PouchDbService} from "./pouch-db.service";
+import {error} from "util";
 
 @Component({
   selector: 'app-root',
@@ -20,10 +21,14 @@ export class AppComponent implements OnInit {
     private appService: AppService,
     private pouchDbService: PouchDbService) { }
 
-  public getSeason() {
+  private getSeason() {
     return this.appService.getSeason()
       .subscribe(
-        response => this.randomSeason = response
+        response => {
+          this.randomSeason = response;
+          this.pouchDbService.addDoc(response);
+        },
+        error => console.error('Something went wrong: ', error.message)
       );
   }
 }

@@ -6,6 +6,7 @@ import PouchDB from 'pouchdb'
 export class PouchDbService {
   private readonly isInstantiated: boolean;
   private database: any;
+  private documentInDB;
 
   constructor() {
     if (!this.isInstantiated) {
@@ -16,17 +17,22 @@ export class PouchDbService {
   }
 
   public addDoc(season: Season) {
-    // let documentInDB = this.database.get('season')
-    //   .catch(error => console.log('ERROR: The document is missing: ', error));
-    // if (documentInDB) {
-    //   this.database.destroy(documentInDB);
-    // }
+    this.database.get("SEASON")
+      .then(response => this.documentInDB = response)
+      .then(() => this.doesDocumentExistInPouchDb(season))
+      .catch(error => console.error('ERROR: The document is missing: ', error));
 
     return this.database.put({
-      _id: 'SEASON',
+      _id: "SEASON",
       season: season
     })
       .then(() => console.log("Document created"))
-      .catch(err => console.log('ERROR: ', err));
+      .catch(err => console.error('ERROR: ', err));
+  }
+
+  private doesDocumentExistInPouchDb(season: Season) {
+    if (this.documentInDB) {
+      return this.documentInDB.season = season;
+    }
   }
 }
