@@ -17,12 +17,19 @@ export class PouchDbService {
   }
 
   public addDoc(season: Season) {
-    this.database.get("SEASON")
+    // check if document is in DB
+    return this.database.get("SEASON")
       .then(response => this.documentInDB = response)
       .then(() => this.doesDocumentExistInPouchDb(season))
-      .catch(error => console.error('ERROR: The document is missing: ', error));
+      .then(document => console.log('UPDATED DOCUMENT: ', document)) // TODO: Update the document.
+      .catch(error => {
+        console.error('ERROR: The document is missing: ', error);
+        this.addToPouchDB(season);
+      });
+  }
 
-    return this.database.put({
+  private addToPouchDB(season: Season) {
+    this.database.put({
       _id: "SEASON",
       season: season
     })
