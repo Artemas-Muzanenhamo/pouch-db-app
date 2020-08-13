@@ -16,19 +16,24 @@ export class PouchDbService {
     }
   }
 
-  public addDoc(season: Season) {
+  public syncWithPouchDB(season: Season) {
     // check if document is in DB
-    return this.database.get("SEASON")
+    this.database.get("SEASON")
       .then(response => this.documentInDB = response)
-      .then(() => this.doesDocumentExistInPouchDb(season))
-      .then(document => console.log('UPDATED DOCUMENT: ', document)) // TODO: Update the document.
+      .then(() => this.updateDocumentInDB(season))
+      .then(() => this.database.put(this.documentInDB))
       .catch(error => {
         console.error('ERROR: The document is missing: ', error);
-        this.addToPouchDB(season);
+        this.addToDB(season);
       });
   }
 
-  private addToPouchDB(season: Season) {
+  public retrieveFromDB(documentKey: string) {
+    return this.database.get(documentKey)
+      .then(response => response.season);
+  }
+
+  private addToDB(season: Season) {
     this.database.put({
       _id: "SEASON",
       season: season
@@ -37,7 +42,7 @@ export class PouchDbService {
       .catch(err => console.error('ERROR: ', err));
   }
 
-  private doesDocumentExistInPouchDb(season: Season) {
+  private updateDocumentInDB(season: Season) {
     if (this.documentInDB) {
       return this.documentInDB.season = season;
     }

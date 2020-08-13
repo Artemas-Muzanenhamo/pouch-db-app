@@ -12,6 +12,7 @@ import {error} from "util";
 export class AppComponent implements OnInit {
   title = 'RANDOM SEASON OF THE DAY IS';
   randomSeason: Season = new Season('');
+  private documentKey: string = 'SEASON';
 
   ngOnInit(): void {
     this.getSeason();
@@ -26,9 +27,18 @@ export class AppComponent implements OnInit {
       .subscribe(
         response => {
           this.randomSeason = response;
-          this.pouchDbService.addDoc(response);
+          this.pouchDbService.syncWithPouchDB(response);
         },
-        error => console.error('Something went wrong: ', error.message)
+        error => {
+          console.error('Something went wrong: ', error.message);
+          return this.getValueFromPouchDB();
+        }
       );
+  }
+
+  private getValueFromPouchDB() {
+    return this.pouchDbService.retrieveFromDB(this.documentKey)
+      .then(season => this.randomSeason = season)
+      .catch(error => console.error('THERE IS NO DOCUMENT WITH THAT DOCUMENT KEY: ', this.documentKey));
   }
 }
