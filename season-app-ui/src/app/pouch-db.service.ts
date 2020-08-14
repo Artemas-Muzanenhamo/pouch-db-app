@@ -16,7 +16,7 @@ export class PouchDbService {
     }
   }
 
-  public syncWithPouchDB(season: Season) {
+  public syncWithPouchDB(season: Season): void {
     // check if document is in DB
     this.database.get("SEASON")
       .then(response => this.documentInDB = response)
@@ -28,21 +28,21 @@ export class PouchDbService {
       });
   }
 
-  public retrieveFromDB(documentKey: string) {
+  public retrieveFromDB(documentKey: string): Promise<Season> {
     return this.database.get(documentKey)
-      .then(response => response.season);
+      .then(document => document.season);
   }
 
-  private addToDB(season: Season) {
+  private addToDB(season: Season): void {
     this.database.put({
       _id: "SEASON",
       season: season
     })
       .then(() => console.log("Document created"))
-      .catch(err => console.error('ERROR: ', err));
+      .catch(err => console.error('ERROR: Could not create document: ', err));
   }
 
-  private updateDocumentInDB(season: Season) {
+  private updateDocumentInDB(season: Season): Season {
     if (this.documentInDB) {
       return this.documentInDB.season = season;
     }

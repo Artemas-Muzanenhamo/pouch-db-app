@@ -36,7 +36,7 @@ export class AppComponent implements OnInit {
       );
   }
 
-  private getValueFromPouchDB() {
+  private getValueFromPouchDB(): Promise<void | Season> {
     return this.pouchDbService.retrieveFromDB(this.documentKey)
       .then(season => this.randomSeason = season)
       .catch(error => console.error('THERE IS NO DOCUMENT WITH THAT DOCUMENT KEY: ', this.documentKey));
