@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {Observable} from "rxjs";
-import {Season} from "./season";
-import {HttpClient} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {Season} from './season';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class AppService {

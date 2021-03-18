@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {AppService} from "./app.service";
-import {Season} from "./season";
-import {PouchDbService} from "./pouch-db.service";
-import {error} from "util";
+import {AppService} from './app.service';
+import {Season} from './season';
+import {PouchDbService} from './pouch-db.service';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,7 @@ import {error} from "util";
 export class AppComponent implements OnInit {
   title = 'RANDOM SEASON OF THE DAY IS';
   randomSeason: Season = new Season('');
-  private documentKey: string = 'SEASON';
+  private documentKey = 'SEASON';
 
   ngOnInit(): void {
     this.getSeason();
@@ -39,6 +38,6 @@ export class AppComponent implements OnInit {
   private getValueFromPouchDB(): Promise<void | Season> {
     return this.pouchDbService.retrieveFromDB(this.documentKey)
       .then(season => this.randomSeason = season)
-      .catch(error => console.error('THERE IS NO DOCUMENT WITH THAT DOCUMENT KEY: ', this.documentKey));
+      .catch(() => console.error('THERE IS NO DOCUMENT WITH THAT DOCUMENT KEY: ', this.documentKey));
   }
 }
