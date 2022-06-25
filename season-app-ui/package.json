@@ -19,7 +19,7 @@
     "@angular/platform-browser": "~11.2.6",
     "@angular/platform-browser-dynamic": "~11.2.6",
     "@angular/router": "~11.2.6",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "pouchdb": "^7.2.2",
     "rxjs": "~6.6.6",
     "tslib": "^1.14.1",
